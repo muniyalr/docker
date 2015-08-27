@@ -1,5 +1,5 @@
 FROM ubuntu:14.04
-MAINTAINER Raghu Muniyal raghuschandra@gmail.com
+MAINTAINER Raghu Muniyal raghu.muniyal@nirvis.co.uk
 
 ENV JAVA_HOME /opt/tomcat/java
 RUN apt-get update
