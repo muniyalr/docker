@@ -1,0 +1,48 @@
+version: "3"
+services:
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - ./prometheus:/etc/prometheus
+
+  telegraf:
+    image: telegraf
+    ports:
+      - "9126:9126"
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - ./telegraf:/etc/telegraf
+
+  influxdb:
+    image: influxdb
+    ports:
+      - "8086"
+    networks:
+      - backend
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx/nginx_status.conf:/etc/nginx/conf.d/nginx_status.conf
+    ports:
+      - "8080:80"
+      - "8090:8090"
+    networks:
+      - frontend
+
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  telegraf:
+  prometheus:
