@@ -27,7 +27,6 @@ services:
       - "8086"
     networks:
       - backend
-
   nginx:
     image: nginx
     volumes:
@@ -38,6 +37,21 @@ services:
     networks:
       - frontend
 
+  alertmanager:
+    image: quay.io/prometheus/alertmanager
+    ports:
+      - "9093:9093"
+    networks:
+      - frontend
+
+  unsee:
+    image: cloudflare/unsee
+    ports:
+      - "9094:8080"
+    environment:
+        - ALERTMANAGER_URI=http://alertmanager:9093
+    networks:
+      - frontend
 
 networks:
   frontend:
